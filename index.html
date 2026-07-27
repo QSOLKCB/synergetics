@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Source-bound atlas comparing Fuller, QSOL-IMC, Thorne, Hawken and Buddhist Middle Way training through explicit shared signals.">
+  <title>SYNERGETICS — Parameter Atlas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">QSOL-IMC / comparative systems research</p>
+      <h1>SYNERGETICS</h1>
+      <p class="lede">A source-bound atlas for locating common signals across energetic geometry, informational geometry, executable boundary systems, regenerative ecology and reciprocal Buddhist training.</p>
+    </div>
+    <div class="header-actions">
+      <button id="sonifyButton" type="button">Sonify visible map</button>
+      <button id="exportButton" type="button">Export research view</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="notice" aria-label="Research boundary">
+      <strong>Research boundary:</strong> agreement among sources does not manufacture truth. The matcher reports shared structure, mapping strength and residual differences in meaning, units, purpose and ontology.
+    </section>
+
+    <section class="toolbar" aria-label="Atlas controls">
+      <label>Mode
+        <select id="modeSelect">
+          <option value="strict">Strict</option>
+          <option value="sandbox">Sandbox</option>
+          <option value="all">All, including rejected</option>
+        </select>
+      </label>
+      <label>Search
+        <input id="searchInput" type="search" placeholder="boundary, pressure, wisdom, regeneration…">
+      </label>
+      <fieldset>
+        <legend>Research stations</legend>
+        <label><input type="checkbox" name="namespace" value="fuller" checked> Fuller</label>
+        <label><input type="checkbox" name="namespace" value="qsol" checked> QSOL</label>
+        <label><input type="checkbox" name="namespace" value="thorne" checked> Thorne</label>
+        <label><input type="checkbox" name="namespace" value="hawken" checked> Hawken</label>
+        <label><input type="checkbox" name="namespace" value="buddhist" checked> Middle Way</label>
+        <label><input type="checkbox" name="namespace" value="shared" checked> Shared signals</label>
+      </fieldset>
+      <label>Layout seed
+        <input id="seedInput" type="number" value="303" min="0" step="1">
+      </label>
+    </section>
+
+    <section class="metrics" aria-label="Visible-map metrics">
+      <article><span id="nodeCount">0</span><small>parameters</small></article>
+      <article><span id="relationCount">0</span><small>relations</small></article>
+      <article><span id="strictCount">0</span><small>strict mappings</small></article>
+      <article><span id="hypothesisCount">0</span><small>hypotheses</small></article>
+    </section>
+
+    <section class="triangulator" aria-labelledby="matcherTitle">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Signal field matcher</p>
+          <h2 id="matcherTitle">Locate a shared signal</h2>
+          <p>Inspect one station, triangulate three, or compare all five around the strongest defensible shared concept. The centre is a measured comparison—not a universal synthesis.</p>
+        </div>
+        <div class="tri-actions">
+          <label>Field mode
+            <select id="fieldMode">
+              <option value="all">All enabled stations</option>
+              <option value="triad">First three enabled</option>
+              <option value="single">Single-station inspection</option>
+            </select>
+          </label>
+          <button id="autoMatchButton" type="button">Find strongest signal</button>
+          <button id="triSonifyButton" type="button">Sonify field</button>
+        </div>
+      </div>
+      <div class="tri-controls">
+        <label><input class="station-toggle" type="checkbox" value="fuller" checked> Fuller<select id="fullerSelect"></select></label>
+        <label><input class="station-toggle" type="checkbox" value="qsol" checked> QSOL<select id="qsolSelect"></select></label>
+        <label><input class="station-toggle" type="checkbox" value="thorne" checked> Thorne<select id="thorneSelect"></select></label>
+        <label><input class="station-toggle" type="checkbox" value="hawken" checked> Hawken<select id="hawkenSelect"></select></label>
+        <label><input class="station-toggle" type="checkbox" value="buddhist" checked> Middle Way<select id="buddhistSelect"></select></label>
+      </div>
+      <div class="tri-grid">
+        <svg id="triangulation" viewBox="0 0 1000 600" role="img" aria-label="Multi-station shared-signal field"></svg>
+        <aside id="triReport" class="tri-report" aria-live="polite"></aside>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="atlas-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">Provenance atlas</p><h2>Relational map</h2></div>
+          <div class="legend" aria-label="Mapping legend">
+            <span data-class="EXACT">Exact</span><span data-class="STRUCTURAL">Structural</span><span data-class="FUNCTIONAL">Functional</span><span data-class="ANALOGICAL">Analogical</span><span data-class="HYPOTHETICAL">Hypothetical</span><span data-class="REJECTED">Rejected</span>
+          </div>
+        </div>
+        <svg id="atlas" viewBox="0 0 1600 820" role="img" aria-labelledby="atlasTitle atlasDesc">
+          <title id="atlasTitle">Synergetics parameter relation map</title>
+          <desc id="atlasDesc">Interactive map of Fuller, QSOL, Thorne, Hawken, Buddhist Middle Way and shared comparative signals.</desc>
+        </svg>
+      </div>
+      <aside id="detailPanel" class="detail-panel" aria-live="polite">
+        <p class="eyebrow">Evidence ledger</p>
+        <h2>Select a parameter or relation</h2>
+        <p>Inspect provenance, mapping class, preserved properties, discarded properties and falsification conditions.</p>
+      </aside>
+    </section>
+
+    <section class="crosswalk-panel">
+      <div class="panel-heading"><div><p class="eyebrow">Parameter crosswalk</p><h2>Visible relations</h2></div></div>
+      <div class="table-wrap"><table><thead><tr><th>From</th><th>To</th><th>Class</th><th>Evidence</th><th>Preserves</th></tr></thead><tbody id="crosswalkBody"></tbody></table></div>
+    </section>
+  </main>
+
+  <footer><p>Independent comparative research by Trent Slade / QSOL-IMC. No affiliation or endorsement is claimed from the people, estates, institutes, projects or Buddhist traditions represented.</p></footer>
+  <script src="data/data.bundle.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

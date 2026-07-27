@@ -1,683 +1,300 @@
 # SYNERGETICS — Parameter Atlas & Visual Research Lab
 
-> **An independent research project mapping Buckminster Fuller’s Synergetics, QSOL-IMC frameworks, and only the demonstrably Synergetic elements of Brian Thorne’s software work.**
+> **A source-bound research atlas for comparing Buckminster Fuller, QSOL-IMC, selected Brian Thorne software structures, Paul Hawken’s regenerative work, and the Buddhist Middle Way without pretending that analogy is equivalence.**
 
-[![Status](https://img.shields.io/badge/status-research%20prototype-orange)](#project-status)
-[![Offline](https://img.shields.io/badge/lab-offline--first-success)](#visual-research-lab)
-[![Deterministic](https://img.shields.io/badge/outputs-deterministic-blue)](#determinism-and-reproducibility)
+[![Validate Atlas](https://github.com/QSOLKCB/synergetics/actions/workflows/ci.yml/badge.svg)](https://github.com/QSOLKCB/synergetics/actions/workflows/ci.yml)
+[![Deploy Pages](https://github.com/QSOLKCB/synergetics/actions/workflows/pages.yml/badge.svg)](https://github.com/QSOLKCB/synergetics/actions/workflows/pages.yml)
+[![Offline](https://img.shields.io/badge/lab-offline--first-success)](#run-locally)
+[![No dependencies](https://img.shields.io/badge/runtime-no%20dependencies-blue)](#technical-boundaries)
 
-## Important notice
+<p align="center">
+  <strong><a href="https://qsolkcb.github.io/synergetics/">Open the SYNERGETICS Visual &amp; Sonic Lab →</a></strong><br>
+  <sub>The Pages site becomes available after the lab branch is merged into <code>main</code> and the deployment workflow succeeds.</sub>
+</p>
 
-This repository is an independent comparative research project. It is **not affiliated with or endorsed by the Buckminster Fuller Institute, the Buckminster Fuller Estate, or Brian Thorne**.
+## What this project is
 
-The project does not claim that Buckminster Fuller anticipated \(E_8\), qutrit protocols, Wasserstein geometry, modern AI systems, or any QSOL-IMC framework. It also does not claim that every geometric resemblance is a mathematical equivalence.
+SYNERGETICS maps parameters from five distinct **research stations** into explicit comparative signals:
 
-A visually pleasing resemblance is not evidence.
+| Station | Primary lens |
+|---|---|
+| **Buckminster Fuller** | energetic geometry, systems, tetrahedral coordination, vector equilibrium, tensegrity and comprehensive design science |
+| **QSOL-IMC** | information geometry, E8/D4 structures, finite event protocols, relational equilibrium, failure pressure, receipts and sonification |
+| **Brian Thorne** | boundary/interior systems, finite incidence, deterministic artifacts, replay and semantic projection |
+| **Paul Hawken** | regeneration, interbeing, reciprocity, resilience, distributed action and science-based climate solutions |
+| **Buddhist Middle Way** | avoidance of harmful extremes, ethical conduct, collected mind, discernment, dependent arising and reciprocal cultivation |
 
----
+The project asks:
 
-## Purpose
+> Can these systems be compared through shared structural and functional signals while preserving their different meanings, units, histories and aims?
 
-The purpose of this repository is to build a **source-bound parameter atlas** and an **offline visual and sonification laboratory** for studying relationships among:
+## The core rule
 
-1. **Buckminster Fuller’s Synergetics**
-   - synergy and whole-system behaviour;
-   - systems, boundaries, interiors and exteriors;
-   - tetrahedral coordination;
-   - vector equilibrium and the isotropic vector matrix;
-   - closest packing and concentric hierarchy;
-   - tensegrity, tension and compression;
-   - precession, transformation and energetic geometry;
-   - comprehensive anticipatory design science.
+**A shared number is not a shared structure. A shared diagram is not necessarily a shared topology. A shared metaphor is not a shared ontology.**
 
-2. **QSOL-IMC research**
-   - \(E_8\)-root-derived event structures;
-   - \(D_4\) triality and ternary or qutrit-like organisation;
-   - ETQ-101 and ETQ-303 finite event protocols;
-   - graph topology, phase, traversal and receiver-neutral events;
-   - RES=RAG relational equilibrium and Wasserstein transport;
-   - signal pressure, shear, drift, collapse and stability;
-   - canonical artefacts, receipts and deterministic replay;
-   - visualisation and sonification as research instruments;
-   - scale separation and explicit scientific claim boundaries.
+Every relation records:
 
-3. **Synergetic elements in Brian Thorne’s repositories**
-   - boundary–interior duality;
-   - Fano-plane incidence structures;
-   - multiple valid realisations and non-canonical labelling;
-   - deterministic artefacts and replay;
-   - formal verification and machine-checkable constraints;
-   - projective geometry, dual tetrahedral projections and the \(H_4\) 600-cell;
-   - geometry used as an executable semantic or systems framework.
+- its source and destination;
+- mapping class;
+- evidence basis;
+- preserved properties;
+- transformed meaning;
+- discarded properties;
+- unit compatibility;
+- a falsification or rejection condition.
 
-Only elements with inspectable source material or executable repository evidence are included. Theological, universal-consciousness and metaphysical claims are outside the default mapping scope unless they are explicitly selected as objects of comparative study.
+No visible line exists only because two ideas “feel similar.”
 
----
+## Visual & sonic lab
 
-## Core research question
+The dependency-free browser lab provides:
 
-> Can Fuller’s energetic and relational geometry, QSOL’s informational and computational geometry, and Thorne’s boundary/incidence software structures be represented in one comparative atlas **without pretending that analogy is equivalence**?
+### Provenance atlas
 
-The repository is intended to reveal:
+View Fuller, QSOL, Thorne, Hawken, Buddhist and shared-signal namespaces separately. Filter by namespace, search term and mapping strength.
 
-- genuine structural correspondences;
-- useful functional analogies;
-- incompatible definitions;
-- category errors;
-- missing parameters;
-- experimentally testable bridges;
-- mappings that should be rejected.
+### Strict, Sandbox and Rejected modes
 
----
+- **Strict** — `EXACT`, `STRUCTURAL` and `FUNCTIONAL` relations only.
+- **Sandbox** — also displays `ANALOGICAL` and `HYPOTHETICAL` bridges.
+- **All** — includes rejected mappings and negative results.
 
-## Research principles
+### Shared-signal field matcher
 
-### 1. Start with the whole, then inspect the parts
+Choose parameters manually or select **Find strongest signal**.
 
-The atlas should support comprehensive system views while preserving the definitions, units, assumptions and boundaries of every local parameter.
+The matcher can:
 
-### 2. Preserve provenance
+- inspect one station;
+- triangulate three enabled stations;
+- compare all enabled stations;
+- find the strongest shared signal;
+- report station-level scores and evidence classes;
+- expose the weakest match as a residual;
+- export the complete selected research view as JSON.
 
-Every parameter and every cross-framework relation must identify its origin:
+The centre of the visual field is a **comparative abstraction**, not a universal theory created by averaging the sources.
 
-- **FULLER** — sourced from Fuller’s published work or recognised archival material;
-- **QSOL** — sourced from a QSOL-IMC repository, paper, DOI or canonical artefact;
-- **THORNE** — sourced from an inspectable Brian Thorne repository;
-- **SYNTHESIS** — introduced by this project as a comparative abstraction;
-- **HYPOTHESIS** — proposed for testing and not yet established.
+### Field sonification
 
-### 3. Separate physical, mathematical and computational meaning
+Each enabled station becomes one voice.
 
-The atlas must never silently conflate:
+- stronger correspondences are more stable and consonant;
+- weaker correspondences receive greater detuning and reduced spectral clarity;
+- the shared signal receives a quiet reference tone;
+- the visible atlas can also be sonified as a deterministic event sequence.
 
-- physical dimension;
-- algebraic vector-space dimension;
-- graph dimension or degree;
-- state count;
-- spatial coordinate dimension;
-- topological dimension;
-- symbolic or musical register.
+Audio is a receiver projection. It is not evidence for the mapping.
 
-A shared number is not a shared structure. A shared diagram is not necessarily a shared topology. A shared topology is not necessarily a shared dynamics.
+## Initial shared signals
 
-### 4. State what a mapping preserves
+The first registry includes:
 
-Every cross-framework relation must document:
+- `shared.boundary`
+- `shared.whole-part-interaction`
+- `shared.equilibrium`
+- `shared.pressure`
+- `shared.coordination`
+- `shared.projection`
+- `shared.reproducibility`
+- `shared.regeneration`
+- `shared.distributed-action`
+- `shared.feedback-loop`
 
-- what is preserved;
-- what is transformed;
-- what is discarded;
-- whether units are compatible;
-- whether dynamics are comparable;
-- what evidence supports the mapping;
-- what would falsify or reject it.
+Not every station is expected to map strongly to every signal.
 
-### 5. Keep canonical data separate from presentation
-
-The parameter registry and relation graph are canonical research data. Visuals, audio, layouts and animations are receiver projections and must not silently alter the underlying records.
-
----
-
-## Mapping classification
-
-Every proposed relation receives one classification.
+## Mapping classes
 
 | Class | Meaning |
 |---|---|
-| `EXACT` | The structures are equivalent under a declared, reproducible transformation. This should be rare. |
-| `STRUCTURAL` | A meaningful relational pattern or invariant is shared, but the systems are not identical. |
-| `FUNCTIONAL` | Different structures perform a comparable role within their respective systems. |
-| `ANALOGICAL` | The comparison is useful for interpretation or visualisation but does not establish mathematical identity. |
-| `HYPOTHETICAL` | A proposed bridge awaiting formalisation, computation or empirical testing. |
-| `REJECTED` | The mapping was examined and found misleading, unsupported or category-incompatible. |
+| `EXACT` | A reproducible transformation preserves the declared structure. Rare by design. |
+| `STRUCTURAL` | A meaningful organisation or invariant is preserved. |
+| `FUNCTIONAL` | Different structures perform comparable roles in their own systems. |
+| `ANALOGICAL` | Interpretively useful, but not mathematically or ontologically identical. |
+| `HYPOTHETICAL` | Proposed bridge awaiting formalisation or testing. |
+| `REJECTED` | Examined and found misleading, unsupported or category-incompatible. |
 
-The visual lab must allow users to hide all `ANALOGICAL` and `HYPOTHETICAL` links.
+Evidence codes:
 
-### Evidence status
+- `P` — primary or recognised source;
+- `R` — reproducible repository implementation;
+- `D` — derived relation or mathematical analysis;
+- `E` — empirical observation or assessment;
+- `H` — interpretive hypothesis.
 
-Mappings also carry an evidence status:
+## Examples of deliberately rejected mappings
 
-| Code | Evidence basis |
-|---|---|
-| `P` | Primary published or archival source |
-| `R` | Reproducible repository implementation |
-| `D` | Derived mathematically from cited inputs |
-| `E` | Empirical observation or benchmark |
-| `H` | Hypothesis or interpretive proposal |
+The registry explicitly rejects claims that:
 
-Classification and evidence are separate. A structural mapping may be well evidenced, while an exact mapping claim may still be unsupported.
+- the Threefold Training is equivalent to ternary protocol states;
+- the Middle Way is a geometric midpoint or vector equilibrium;
+- recurring use of the number three proves a connection;
+- Fano incidence is equivalent to the E8 root system;
+- Hawken’s ethical reciprocity is a polyhedral balance law;
+- Buddhist discernment is merely a visual or sonic projection;
+- contemplative cultivation is a deterministic replay artifact.
 
----
+Negative results are first-class research outputs.
 
-## Initial parameter namespaces
+## Buddhist-source boundary
 
-### `fuller.*`
+The Buddhist station is not a generic “balance philosophy.”
 
-Initial Fuller parameter families:
+It preserves:
 
-- `fuller.synergy`
-- `fuller.system.boundary`
-- `fuller.system.interior`
-- `fuller.system.exterior`
-- `fuller.tetrahedral.minimum-system`
-- `fuller.vector-equilibrium`
-- `fuller.isotropic-vector-matrix`
-- `fuller.closest-packing`
-- `fuller.concentric-hierarchy`
-- `fuller.tensegrity.tension`
-- `fuller.tensegrity.compression`
-- `fuller.precession`
-- `fuller.energy-event`
-- `fuller.frequency`
-- `fuller.angular-topology`
-- `fuller.ephemeralization`
-- `fuller.design-science.comprehensive`
-- `fuller.design-science.anticipatory`
-- `fuller.design-science.artifact`
+- the Middle Way as avoidance of harmful extremes and the Noble Eightfold Path;
+- the Threefold Training in **sīla**, **samādhi** and **paññā**;
+- dependent arising as conditionality and non-isolation;
+- the distinct aim of ending suffering.
 
-### `qsol.*`
+`buddhist.cultivation-loop` is an explicitly derived comparative representation. It is not presented as a canonical Buddhist diagram, a qutrit system or an engineering control loop.
 
-Initial QSOL parameter families:
+## Hawken-source boundary
 
-- `qsol.e8.root-system`
-- `qsol.d4.triality`
-- `qsol.etq.selected-root-basis`
-- `qsol.etq.ternary-state`
-- `qsol.etq.c3-fibre`
-- `qsol.etq.phase`
-- `qsol.etq.support-traversal`
-- `qsol.etq.graph-lift`
-- `qsol.etq.canonical-event`
-- `qsol.etq.receiver-projection`
-- `qsol.resrag.res-substrate`
-- `qsol.resrag.rag-generation`
-- `qsol.resrag.relational-equilibrium`
-- `qsol.resrag.wasserstein-distance`
-- `qsol.resrag.dialogical-time`
-- `qsol.pressure.signal`
-- `qsol.pressure.shear`
-- `qsol.pressure.drift`
-- `qsol.pressure.collapse`
-- `qsol.pressure.stability-envelope`
-- `qsol.proof.canonical-json`
-- `qsol.proof.receipt`
-- `qsol.proof.replay`
-- `qsol.sonification.event-mapping`
-- `qsol.sonification.pressure-mapping`
-- `qsol.uff.scale-separation`
+The Hawken station distinguishes:
 
-### `thorne.*`
+- Paul Hawken’s published work;
+- Project Regeneration’s life-centred framework;
+- Project Drawdown’s institutional science and methods.
 
-Initial Thorne parameter families:
+Current Project Drawdown claims are not automatically attributed personally to Hawken.
 
-- `thorne.boundary-interior.duality`
-- `thorne.boundary.realisation`
-- `thorne.boundary.non-canonicity`
-- `thorne.fano.point`
-- `thorne.fano.line`
-- `thorne.fano.incidence`
-- `thorne.fano.pair-cover`
-- `thorne.projective-completion`
-- `thorne.dual-tetrahedral-projection`
-- `thorne.h4.600-cell`
-- `thorne.identity.canonicalisation`
-- `thorne.artifact.determinism`
-- `thorne.replay.conformance`
-- `thorne.geometry.semantic-projection`
-- `thorne.formal-verification`
+## Technical boundaries
 
-### `shared.*`
+The lab is intentionally simple:
 
-Shared parameters are not assumed to be universal truths. They are comparative categories created by this project:
-
-- `shared.boundary`
-- `shared.relation`
-- `shared.whole-part-interaction`
-- `shared.invariant`
-- `shared.coordination`
-- `shared.equilibrium`
-- `shared.constraint`
-- `shared.transformation`
-- `shared.topology`
-- `shared.hierarchy`
-- `shared.scale`
-- `shared.emergence`
-- `shared.pressure`
-- `shared.projection`
-- `shared.observer-receiver`
-- `shared.artifact`
-- `shared.reproducibility`
-
----
-
-## Parameter record format
-
-Canonical parameter records should use a machine-readable schema similar to:
-
-```json
-{
-  "id": "qsol.resrag.relational-equilibrium",
-  "label": "Relational Equilibrium",
-  "namespace": "qsol",
-  "domains": ["information-geometry", "cognition", "systems"],
-  "definition": "A dynamically regulated relation between receptive substrate and autonomous generation.",
-  "quantity_type": "model-dependent",
-  "units": null,
-  "dimension": "declared-by-model",
-  "range": null,
-  "source_refs": ["QSOLKCB/res-rag:README.md"],
-  "evidence_status": ["R"],
-  "canonical": true,
-  "notes": []
-}
-```
-
-Cross-framework relation records should use:
-
-```json
-{
-  "id": "map.fuller-system.qsol-proof-boundary",
-  "from": "fuller.system.boundary",
-  "to": "qsol.proof.receipt",
-  "classification": "FUNCTIONAL",
-  "evidence_status": ["P", "R"],
-  "preserves": ["inside-outside distinction", "system identity"],
-  "transforms": ["geometric boundary into computational validation boundary"],
-  "discards": ["physical spatial embedding"],
-  "unit_compatibility": "not-applicable",
-  "falsification": "Reject if the computational object cannot define a stable inclusion/exclusion boundary.",
-  "status": "open-for-review"
-}
-```
-
-No relation should exist only as an unlabeled visual line.
-
----
-
-## Visual Research Lab
-
-The repository will include an offline-first laboratory built with plain HTML, CSS and JavaScript.
-
-### Constraints
-
-- no cloud requirement;
+- plain HTML, CSS and JavaScript;
+- no cloud runtime;
+- no CDN;
 - no telemetry;
-- no CDN dependency;
-- no mandatory Node.js build step;
-- direct local opening supported;
-- deterministic layout seeds;
-- accessible keyboard navigation;
-- reduced-motion mode;
-- print and monochrome modes;
-- no decorative RGB cycling or unsupported “sacred geometry” effects.
+- no framework;
+- no npm dependencies;
+- no mandatory build step;
+- direct `file://` opening supported;
+- native SVG and Web Audio;
+- deterministic layout seed;
+- accessible keyboard interaction;
+- reduced-motion and print support.
 
-Native SVG, Canvas and Web Audio APIs should be preferred.
+Node.js is used only for repository validation and CI.
 
-### Lab views
+## Run locally
 
-#### 1. Provenance Atlas
+Clone or download the repository, then open `index.html` directly in a modern browser.
 
-Display Fuller, QSOL, Thorne and Synthesis as separate source regions. Every node retains its source colour, evidence grade and claim status.
+A local server is optional:
 
-#### 2. Parameter Crosswalk
+```bash
+python3 -m http.server 8000
+```
 
-A searchable matrix showing which parameters are:
+Then visit `http://localhost:8000`.
 
-- exact;
-- structurally related;
-- functionally analogous;
-- speculative;
-- incompatible;
-- unmapped.
+## Validate
 
-#### 3. Whole–Part Systems View
+Node.js 24 or newer:
 
-Explore systems, boundaries, interiors, exteriors, components and emergent whole-system behaviour.
+```bash
+npm test
+```
 
-#### 4. Fuller Geometry View
+Validation fails closed for:
 
-Interactive tetrahedron, octahedron, vector equilibrium, closest-packing and tensegrity representations. These must be sourced and labelled as Fuller parameters rather than used as generic mystical geometry.
+- duplicate parameter or relation IDs;
+- unknown namespaces or evidence codes;
+- orphan relation endpoints;
+- missing rationale or falsification conditions;
+- non-rejected direct equivalences that bypass a shared signal;
+- rejected relations not marked as rejected;
+- missing station mappings;
+- absence of a shared signal covering all five stations.
 
-#### 5. QSOL Geometry View
+## GitHub Pages
 
-Explore \(E_8\) roots, \(D_4\) triality, ETQ selected-root structures, ternary fibres, graph lifts, phase labels and deterministic event traversal.
+The repository is configured for **GitHub Actions** Pages deployment.
 
-#### 6. RES=RAG Transport View
+On every push to `main`, the Pages workflow:
 
-Display receptive and generative distributions, Wasserstein separation, equilibrium trajectories, dialogical-time displacement and stability regions.
+1. validates the JavaScript and registry;
+2. copies only the static lab files into a deployment artifact;
+3. publishes the lab through GitHub Pages.
 
-#### 7. Thorne Incidence View
-
-Display only the relevant boundary/interior, Fano-plane, projective, dual-tetrahedral and 600-cell structures, with repository evidence available in an inspection drawer.
-
-#### 8. Tension–Pressure Comparison
-
-Compare Fuller’s tension/compression structures with QSOL pressure, shear, drift and stability models.
-
-This view must default to `ANALOGICAL` unless a stronger mathematical bridge is formally established.
-
-#### 9. Invariant Comparator
-
-Compare candidate structures using measurable properties:
-
-- vertex and edge counts;
-- degree sequences;
-- incidence matrices;
-- automorphism groups;
-- spectra;
-- connected components;
-- cycle ranks;
-- homology or persistent homology where appropriate;
-- graph-edit or transport distances;
-- dynamical response under perturbation.
-
-This prevents mappings from being scored by visual resemblance alone.
-
-#### 10. Evidence Ledger
-
-Selecting any node or edge should reveal:
-
-- definition;
-- source;
-- evidence status;
-- mapping class;
-- preserved and discarded properties;
-- assumptions;
-- known objections;
-- reproducibility commands;
-- review history.
-
-#### 11. Strict and Sandbox modes
-
-**Strict Mode** shows only canonical parameters and `EXACT`, `STRUCTURAL` or well-supported `FUNCTIONAL` mappings.
-
-**Sandbox Mode** also displays analogies and hypotheses, clearly marked and visually separated from established relations.
-
----
-
-## Sonification Lab
-
-The same parameter graph may be rendered as sound, but audio is a receiver—not canonical evidence.
-
-Possible mappings include:
-
-- graph degree → register or density;
-- edge weight → amplitude or timbral pressure;
-- Wasserstein distance → interval width, beating or spatial separation;
-- equilibrium error → detuning or phase drift;
-- compression → spectral concentration;
-- tension → sustained interval strain;
-- instability → modulation depth or rhythmic irregularity;
-- traversal order → event sequence;
-- mapping confidence → signal-to-noise or harmonic stability.
-
-Exports may include:
-
-- MIDI;
-- WAV;
-- event JSON;
-- event CSV;
-- mapping manifest;
-- deterministic render receipt.
-
-Audio mappings must state whether they are descriptive, analytical or artistic.
-
----
-
-## Proposed repository structure
+## Repository layout
 
 ```text
-SYNERGETICS/
-├── README.md
-├── LICENSE
-├── NOTICE.md
-├── CITATION.cff
+synergetics/
 ├── index.html
 ├── style.css
 ├── js/
-│   ├── app.js
-│   ├── state.js
-│   ├── renderer.js
-│   ├── sonification.js
-│   ├── export.js
-│   └── views/
-│       ├── provenance-atlas.js
-│       ├── parameter-crosswalk.js
-│       ├── fuller-geometry.js
-│       ├── qsol-geometry.js
-│       ├── resrag-transport.js
-│       ├── thorne-incidence.js
-│       ├── pressure-tensegrity.js
-│       └── evidence-ledger.js
+│   └── app.js
 ├── data/
-│   ├── parameters.json
-│   ├── relations.json
-│   ├── rejected-relations.json
-│   ├── sources.json
-│   ├── experiments.json
 │   └── data.bundle.js
-├── schemas/
-│   ├── parameter.schema.json
-│   ├── relation.schema.json
-│   ├── source.schema.json
-│   └── experiment.schema.json
+├── tools/
+│   └── validate_registry.mjs
 ├── docs/
 │   ├── MAPPING_RULES.md
 │   ├── CLAIM_BOUNDARIES.md
-│   ├── FULLER_PARAMETER_INDEX.md
-│   ├── QSOL_PARAMETER_INDEX.md
-│   ├── THORNE_PARAMETER_INDEX.md
-│   ├── GLOSSARY.md
-│   └── sources/
-│       ├── FULLER_SOURCES.md
-│       ├── QSOL_SOURCES.md
-│       └── THORNE_SOURCES.md
-├── experiments/
-│   ├── tetrahedral-etq/
-│   ├── vector-equilibrium-projections/
-│   ├── tensegrity-pressure/
-│   ├── fano-e8-incidence/
-│   └── wasserstein-structure-comparison/
-├── tools/
-│   ├── build_data_bundle.py
-│   ├── validate_registry.py
-│   ├── hash_manifest.py
-│   └── compare_invariants.py
-└── tests/
-    ├── test_schema.py
-    ├── test_provenance.py
-    ├── test_relations.py
-    ├── test_no_orphans.py
-    ├── test_rejected_mappings.py
-    └── test_determinism.py
+│   └── SOURCES.md
+├── .github/workflows/
+│   ├── ci.yml
+│   └── pages.yml
+├── package.json
+├── CITATION.cff
+├── NOTICE.md
+└── README.md
 ```
 
-`data.bundle.js` should be generated from the canonical JSON registry so the lab can open directly from `file://` without browser fetch restrictions. Its manifest must record the source JSON hashes.
+## Research documentation
 
----
-
-## Determinism and reproducibility
-
-The lab should produce deterministic outputs from:
-
-- a declared dataset version;
-- canonical JSON serialisation;
-- a fixed layout seed;
-- an explicit view configuration;
-- an explicit sonification mapping;
-- a recorded software version.
-
-Research exports should contain:
-
-```text
-parameter registry hash
-relation registry hash
-source registry hash
-layout seed
-active filters
-mapping-class threshold
-selected parameters
-visualisation settings
-sonification settings
-software version
-output hashes
-```
-
-Two researchers using the same registry, seed and settings should be able to reproduce the same parameter selection, graph layout and event stream.
-
----
-
-## Initial experiments
-
-These are research questions, not established correspondences.
-
-### E1 — Tetrahedralisation of ETQ graph neighbourhoods
-
-Test whether local ETQ graph regions admit useful tetrahedral decompositions and whether those decompositions preserve meaningful adjacency or phase invariants.
-
-### E2 — Vector-equilibrium projections of selected root structures
-
-Test projections of selected \(E_8\)-derived structures into vector-equilibrium coordinate systems. Record distortion, lost dimensions and preserved symmetry rather than presenting the projection as identity.
-
-### E3 — Tensegrity and information pressure
-
-Construct a formal analogy between tension/compression balance and QSOL signal-pressure variables. Determine whether the analogy produces measurable predictive behaviour or remains purely illustrative.
-
-### E4 — Fano incidence and \(D_4\)/\(E_8\) substructure
-
-Test for actual incidence-preserving maps, compatible finite-field structures or shared invariants. Reject the bridge if it is supported only by recurring numbers or visual resemblance.
-
-### E5 — Wasserstein comparison of structural states
-
-Represent selected Fuller, QSOL and Thorne configurations as distributions or graph-derived measures and test whether Wasserstein distances provide a meaningful cross-framework comparison.
-
-### E6 — Perturbation sonification
-
-Apply controlled perturbations to mapped systems and sonify the resulting stability, drift, collapse or recovery signatures.
-
----
-
-## Mapping scorecard
-
-A proposed bridge should be evaluated across independent dimensions:
-
-| Test | Question |
-|---|---|
-| Definition | Are the source terms defined compatibly? |
-| Units | Are the quantities dimensionally compatible? |
-| Topology | Are connectivity and incidence preserved? |
-| Symmetry | Are relevant group actions or invariants preserved? |
-| Dynamics | Do the systems respond similarly under transformation or perturbation? |
-| Scale | Does the mapping survive changes of scale or resolution? |
-| Reproducibility | Can another researcher reconstruct the result? |
-| Falsifiability | Is there a clear condition under which the mapping fails? |
-| Explanatory gain | Does the bridge explain or predict anything new? |
-
-No single combined percentage should replace the full scorecard. False precision is not rigour.
-
----
-
-## Claim boundaries
-
-This repository does **not** claim that:
-
-- Fuller’s Synergetics is equivalent to modern information geometry;
-- Fuller predicted \(E_8\), qutrit computing, AI or Wasserstein learning;
-- recurring values such as 3, 4, 7, 8, 12, 60, 64, 101 or 303 establish a connection;
-- visual projection preserves the source structure;
-- sonification proves a physical or metaphysical theory;
-- formal verification of a software specification proves the truth of its interpretation;
-- a shared geometric metaphor establishes shared ontology;
-- Thorne’s complete philosophical system is part of this project.
-
-The project maps claims; it does not manufacture certainty between them.
-
----
+- [Mapping and scoring rules](docs/MAPPING_RULES.md)
+- [Claim boundaries](docs/CLAIM_BOUNDARIES.md)
+- [Source and provenance ledger](docs/SOURCES.md)
 
 ## Project status
 
-### Phase 0 — Research foundation
+### Implemented
 
-- [ ] Establish source and citation policy
-- [ ] Create canonical parameter schemas
-- [ ] Build the Fuller parameter index
-- [ ] Build the QSOL parameter index
-- [ ] Build the Synergetic-only Thorne parameter index
-- [ ] Record rejected and incompatible mappings
+- [x] five research-station namespaces;
+- [x] shared-signal registry;
+- [x] strict/sandbox/rejected filtering;
+- [x] evidence ledger;
+- [x] parameter crosswalk;
+- [x] one-, three- and five-station field matching;
+- [x] automatic strongest-signal selection;
+- [x] visual field residual;
+- [x] field and atlas sonification;
+- [x] deterministic JSON research-view export;
+- [x] fail-closed registry validator;
+- [x] CI and GitHub Pages workflows.
 
-### Phase 1 — Atlas
+### Next research stages
 
-- [ ] Parameter registry
-- [ ] Relation registry
-- [ ] Provenance atlas
-- [ ] Search and filtering
-- [ ] Evidence ledger
-- [ ] Strict/Sandbox mode
+- [ ] canonical JSON source registries generated into `data.bundle.js`;
+- [ ] page- and section-level Fuller citations;
+- [ ] tagged commit and DOI pinning for QSOL and Thorne sources;
+- [ ] invariant comparator for graph spectra, automorphisms and homology;
+- [ ] Wasserstein comparison of graph-derived distributions;
+- [ ] controlled perturbation and recovery experiments;
+- [ ] MIDI and WAV export receipts;
+- [ ] versioned Zenodo research bundle.
 
-### Phase 2 — Geometry lab
+## Independence notice
 
-- [ ] Fuller geometry modules
-- [ ] QSOL geometry modules
-- [ ] Thorne incidence modules
-- [ ] Cross-framework invariant comparator
-- [ ] Perturbation and stability controls
+This is an independent comparative research project by **Trent Slade / QSOL-IMC**.
 
-### Phase 3 — Sonification
+No affiliation, endorsement or doctrinal authority is claimed from:
 
-- [ ] Deterministic event mapping
-- [ ] Pressure and equilibrium sonification
-- [ ] MIDI export
-- [ ] WAV export
-- [ ] Mapping manifest and render receipt
+- the Buckminster Fuller Institute or Fuller Estate;
+- Brian Thorne;
+- Paul Hawken, Project Regeneration or Project Drawdown;
+- any Buddhist teacher, lineage, monastic community or institution.
 
-### Phase 4 — Research release
+## Working description
 
-- [ ] Reproducible experiment bundle
-- [ ] Zenodo archive
-- [ ] DOI
-- [ ] Versioned data release
-- [ ] Formal limitations and negative-results report
-
----
-
-## Source policy
-
-The Fuller parameter index should begin with:
-
-- R. Buckminster Fuller and E. J. Applewhite, *Synergetics: Explorations in the Geometry of Thinking*;
-- R. Buckminster Fuller and E. J. Applewhite, *Synergetics 2*;
-- the *Synergetics Dictionary*;
-- Buckminster Fuller Institute material on Synergetics, systems, tensegrity and comprehensive anticipatory design science;
-- recognised archival lectures and demonstrations where the relevant concept is directly attributable.
-
-QSOL parameters should cite their originating repository, tagged release, paper, DOI and canonical artefact where available.
-
-Thorne parameters should cite exact repository paths and commits. Repository claims should be distinguished from executable evidence.
-
-Long copyrighted passages and third-party diagrams should not be copied into this repository. Definitions should be carefully paraphrased and attributed.
-
----
-
-## Licensing recommendation
-
-A practical split licence is recommended:
-
-- **MPL-2.0** for original software;
-- **CC-BY-4.0** for original documentation and parameter datasets;
-- third-party quotations, names, diagrams and source materials remain the property of their respective owners.
-
-The exact licence boundary should be stated in `NOTICE.md` and within generated research bundles.
-
----
+> **SYNERGETICS is an offline visual and sonic parameter atlas that treats Fuller, QSOL, Thorne, Hawken and Buddhist Middle Way training as separate research stations. It locates shared signals, scores the declared correspondence, preserves provenance and displays the residual meaning that does not match.**
 
 ## Creator
 
 **Trent Slade / QSOL-IMC**
 
 Independent research in mathematical structure, information geometry, deterministic computation, sonification and whole-system design.
-
----
-
-## Working description
-
-> **SYNERGETICS is a source-bound parameter atlas and offline visual research laboratory for comparing Buckminster Fuller’s energetic geometry, QSOL-IMC’s informational and computational geometry, and the demonstrably Synergetic boundary/incidence structures found in Brian Thorne’s software work. It separates exact mappings, structural correspondences, useful analogies, hypotheses and rejected relationships while preserving provenance, dimensional meaning and reproducibility.**

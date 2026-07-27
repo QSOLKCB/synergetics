@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use the SYNERGETICS Parameter Atlas, please cite this software."
+title: "SYNERGETICS: Parameter Atlas & Visual Research Lab"
+type: software
+authors:
+  - family-names: Slade
+    given-names: Trent
+    affiliation: QSOL-IMC
+version: 0.1.0
+date-released: 2026-07-28
+repository-code: "https://github.com/QSOLKCB/synergetics"
+url: "https://qsolkcb.github.io/synergetics/"
+license: MIT
+abstract: >-
+  An offline visual and sonic parameter atlas for comparing Buckminster Fuller's
+  Synergetics, QSOL-IMC research, selected Brian Thorne software structures,
+  Paul Hawken's regenerative frameworks, and Buddhist Middle Way training using
+  explicit mapping classes, provenance, residuals and rejected relations.
+keywords:
+  - synergetics
+  - systems thinking
+  - information geometry
+  - sonification
+  - regeneration
+  - middle way
+  - comparative research

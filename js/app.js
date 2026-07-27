@@ -1,9 +1,30 @@
 (() => {
   "use strict";
+
   const data = window.SYNERGETICS_DATA;
   const $ = (id) => document.getElementById(id);
+
+  function htmlEl(name, attrs = {}, text = null) {
+    const node = document.createElement(name);
+    for (const [key, value] of Object.entries(attrs)) {
+      if (key === "class") node.className = String(value);
+      else node.setAttribute(key, String(value));
+    }
+    if (text !== null) node.textContent = String(text);
+    return node;
+  }
+
+  function renderRegistryError() {
+    const main = htmlEl("main");
+    main.append(
+      htmlEl("h1", {}, "Registry load failed"),
+      htmlEl("p", {}, "Expected data/data.bundle.js.")
+    );
+    document.body.replaceChildren(main);
+  }
+
   if (!data || !Array.isArray(data.parameters) || !Array.isArray(data.relations)) {
-    document.body.innerHTML = "<main><h1>Registry load failed</h1><p>Expected data/data.bundle.js.</p></main>";
+    renderRegistryError();
     return;
   }
 
@@ -28,19 +49,46 @@
   const namespaceX = { fuller: 115, qsol: 385, thorne: 655, shared: 800, hawken: 1085, buddhist: 1460 };
   let currentField = null;
 
-  const esc = (value) => String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
-  const pills = (values) => (values || []).map((value) => `<span class="pill">${esc(value)}</span>`).join("") || "—";
-
   function svgEl(name, attrs = {}) {
     const node = document.createElementNS("http://www.w3.org/2000/svg", name);
-    Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, String(value)));
+    for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, String(value));
     return node;
+  }
+
+  function appendPills(container, values) {
+    const list = Array.isArray(values) ? values : [];
+    if (!list.length) {
+      container.append(document.createTextNode("—"));
+      return;
+    }
+    for (const value of list) container.append(htmlEl("span", { class: "pill" }, value));
+  }
+
+  function appendDefinition(dl, term, content) {
+    dl.append(htmlEl("dt", {}, term));
+    const dd = htmlEl("dd");
+    if (content instanceof Node) dd.append(content);
+    else dd.textContent = String(content ?? "—");
+    dl.append(dd);
+    return dd;
+  }
+
+  function pillFragment(values) {
+    const fragment = document.createDocumentFragment();
+    appendPills(fragment, values);
+    return fragment;
+  }
+
+  function activateWithKeyboard(event, callback) {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    callback();
   }
 
   function hashString(value) {
     let hash = 2166136261;
-    for (let i = 0; i < value.length; i += 1) {
-      hash ^= value.charCodeAt(i);
+    for (let index = 0; index < value.length; index += 1) {
+      hash ^= value.charCodeAt(index);
       hash = Math.imul(hash, 16777619);
     }
     return hash >>> 0;
@@ -79,9 +127,9 @@
   function layout(parameters) {
     const seed = Number.parseInt(seedInput.value, 10) || 0;
     const groups = Object.fromEntries(namespaceOrder.map((name) => [name, []]));
-    parameters.forEach((item) => groups[item.namespace]?.push(item));
+    for (const item of parameters) groups[item.namespace]?.push(item);
     const positions = new Map();
-    namespaceOrder.forEach((namespace) => {
+    for (const namespace of namespaceOrder) {
       const items = groups[namespace].sort((a, b) => a.id.localeCompare(b.id));
       const step = Math.min(67, 685 / Math.max(1, items.length));
       items.forEach((item, index) => {
@@ -91,7 +139,7 @@
           y: 415 + centred * step + jitter(`${item.id}:y`, seed, 16)
         });
       });
-    });
+    }
     return positions;
   }
 
@@ -99,21 +147,23 @@
     const visible = visibleData();
     const positions = layout(visible.parameters);
     svg.replaceChildren();
-    namespaceOrder.forEach((namespace) => {
-      if (!activeNamespaces().has(namespace)) return;
+
+    const namespaces = activeNamespaces();
+    for (const namespace of namespaceOrder) {
+      if (!namespaces.has(namespace)) continue;
       const label = svgEl("text", { x: namespaceX[namespace], y: 34, "text-anchor": "middle", class: "namespace-label" });
       label.textContent = namespace === "shared" ? "shared signals" : namespace === "buddhist" ? "middle way" : namespace;
       svg.append(label);
-    });
+    }
 
     const edgeLayer = svgEl("g");
-    visible.relations.forEach((relation) => {
-      const a = positions.get(relation.from);
-      const b = positions.get(relation.to);
-      if (!a || !b) return;
-      const mid = (a.x + b.x) / 2;
+    for (const relation of visible.relations) {
+      const from = positions.get(relation.from);
+      const to = positions.get(relation.to);
+      if (!from || !to) continue;
+      const mid = (from.x + to.x) / 2;
       const path = svgEl("path", {
-        d: `M ${a.x} ${a.y} C ${mid} ${a.y}, ${mid} ${b.y}, ${b.x} ${b.y}`,
+        d: `M ${from.x} ${from.y} C ${mid} ${from.y}, ${mid} ${to.y}, ${to.x} ${to.y}`,
         class: `atlas-edge ${relation.classification}`,
         tabindex: 0,
         role: "button",
@@ -121,63 +171,110 @@
       });
       const open = () => showRelation(relation);
       path.addEventListener("click", open);
-      path.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") open(); });
+      path.addEventListener("keydown", (event) => activateWithKeyboard(event, open));
       edgeLayer.append(path);
-    });
+    }
     svg.append(edgeLayer);
 
     const nodeLayer = svgEl("g");
-    visible.parameters.forEach((parameter) => {
-      const pos = positions.get(parameter.id);
+    for (const parameter of visible.parameters) {
+      const position = positions.get(parameter.id);
       const outer = parameter.namespace === "buddhist" || parameter.namespace === "hawken";
-      const group = svgEl("g", { class: `node-group ${parameter.namespace}`, transform: `translate(${pos.x} ${pos.y})`, tabindex: 0, role: "button" });
+      const group = svgEl("g", {
+        class: `node-group ${parameter.namespace}`,
+        transform: `translate(${position.x} ${position.y})`,
+        tabindex: 0,
+        role: "button",
+        "aria-label": `${parameter.label}, ${parameter.namespace} parameter`
+      });
       group.append(svgEl("circle", { r: 10 + Math.min(6, (parameter.evidence_status || []).length * 2) }));
       const text = svgEl("text", { x: outer ? -17 : 17, y: 5, "text-anchor": outer ? "end" : "start" });
       text.textContent = parameter.label;
       group.append(text);
       const open = () => showParameter(parameter);
       group.addEventListener("click", open);
-      group.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") open(); });
+      group.addEventListener("keydown", (event) => activateWithKeyboard(event, open));
       nodeLayer.append(group);
-    });
+    }
     svg.append(nodeLayer);
 
     renderCrosswalk(visible.relations);
-    $("nodeCount").textContent = visible.parameters.length;
-    $("relationCount").textContent = visible.relations.length;
-    $("strictCount").textContent = visible.relations.filter((item) => strictClasses.has(item.classification)).length;
-    $("hypothesisCount").textContent = visible.relations.filter((item) => item.classification === "HYPOTHETICAL").length;
+    $("nodeCount").textContent = String(visible.parameters.length);
+    $("relationCount").textContent = String(visible.relations.length);
+    $("strictCount").textContent = String(visible.relations.filter((item) => strictClasses.has(item.classification)).length);
+    $("hypothesisCount").textContent = String(visible.relations.filter((item) => item.classification === "HYPOTHETICAL").length);
   }
 
   function showParameter(parameter) {
-    detail.innerHTML = `<p class="eyebrow">Parameter / ${esc(parameter.namespace)}</p><h2>${esc(parameter.label)}</h2><p>${esc(parameter.definition)}</p><dl><dt>ID</dt><dd><code>${esc(parameter.id)}</code></dd><dt>Domains</dt><dd>${pills(parameter.domains)}</dd><dt>Evidence</dt><dd>${pills(parameter.evidence_status)}</dd><dt>Sources</dt><dd>${pills(parameter.source_refs)}</dd><dt>Canonical</dt><dd>${parameter.canonical ? "yes" : "comparative synthesis"}</dd></dl>`;
+    const eyebrow = htmlEl("p", { class: "eyebrow" }, `Parameter / ${parameter.namespace}`);
+    const title = htmlEl("h2", {}, parameter.label);
+    const definition = htmlEl("p", {}, parameter.definition);
+    const dl = htmlEl("dl");
+    appendDefinition(dl, "ID", htmlEl("code", {}, parameter.id));
+    appendDefinition(dl, "Domains", pillFragment(parameter.domains));
+    appendDefinition(dl, "Evidence", pillFragment(parameter.evidence_status));
+    appendDefinition(dl, "Sources", pillFragment(parameter.source_refs));
+    appendDefinition(dl, "Canonical", parameter.canonical ? "yes" : "comparative synthesis");
+    detail.replaceChildren(eyebrow, title, definition, dl);
   }
 
   function showRelation(relation) {
     const from = parameterById.get(relation.from);
     const to = parameterById.get(relation.to);
-    detail.innerHTML = `<p class="eyebrow">Relation / ${esc(relation.classification)}</p><h2>${esc(from?.label || relation.from)} → ${esc(to?.label || relation.to)}</h2><p>${esc(relation.rationale)}</p><dl><dt>ID</dt><dd><code>${esc(relation.id)}</code></dd><dt>Evidence</dt><dd>${pills(relation.evidence_status)}</dd><dt>Preserves</dt><dd>${pills(relation.preserves)}</dd><dt>Transforms</dt><dd>${pills(relation.transforms)}</dd><dt>Discards</dt><dd>${pills(relation.discards)}</dd><dt>Units</dt><dd>${esc(relation.unit_compatibility)}</dd><dt>Falsification</dt><dd>${esc(relation.falsification)}</dd><dt>Status</dt><dd>${esc(relation.status)}</dd></dl>`;
+    const eyebrow = htmlEl("p", { class: "eyebrow" }, `Relation / ${relation.classification}`);
+    const title = htmlEl("h2", {}, `${from?.label || relation.from} → ${to?.label || relation.to}`);
+    const rationale = htmlEl("p", {}, relation.rationale);
+    const dl = htmlEl("dl");
+    appendDefinition(dl, "ID", htmlEl("code", {}, relation.id));
+    appendDefinition(dl, "Evidence", pillFragment(relation.evidence_status));
+    appendDefinition(dl, "Preserves", pillFragment(relation.preserves));
+    appendDefinition(dl, "Transforms", pillFragment(relation.transforms));
+    appendDefinition(dl, "Discards", pillFragment(relation.discards));
+    appendDefinition(dl, "Units", relation.unit_compatibility);
+    appendDefinition(dl, "Falsification", relation.falsification);
+    appendDefinition(dl, "Status", relation.status);
+    detail.replaceChildren(eyebrow, title, rationale, dl);
+  }
+
+  function appendCell(row, content) {
+    const cell = htmlEl("td");
+    if (content instanceof Node) cell.append(content);
+    else cell.textContent = String(content ?? "");
+    row.append(cell);
   }
 
   function renderCrosswalk(relations) {
     crosswalk.replaceChildren();
-    relations.forEach((relation) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `<td>${esc(parameterById.get(relation.from)?.label || relation.from)}</td><td>${esc(parameterById.get(relation.to)?.label || relation.to)}</td><td><span class="pill">${esc(relation.classification)}</span></td><td>${pills(relation.evidence_status)}</td><td>${esc((relation.preserves || []).join(", "))}</td>`;
-      row.addEventListener("click", () => showRelation(relation));
+    for (const relation of relations) {
+      const row = htmlEl("tr", {
+        tabindex: 0,
+        role: "button",
+        "aria-label": `Inspect ${relation.classification} relation from ${relation.from} to ${relation.to}`
+      });
+      appendCell(row, parameterById.get(relation.from)?.label || relation.from);
+      appendCell(row, parameterById.get(relation.to)?.label || relation.to);
+      appendCell(row, htmlEl("span", { class: "pill" }, relation.classification));
+      appendCell(row, pillFragment(relation.evidence_status));
+      appendCell(row, (relation.preserves || []).join(", "));
+      const open = () => showRelation(relation);
+      row.addEventListener("click", open);
+      row.addEventListener("keydown", (event) => activateWithKeyboard(event, open));
       crosswalk.append(row);
-    });
+    }
   }
 
   function relationToShared(parameterId, sharedId) {
-    return data.relations.find((relation) => relation.classification !== "REJECTED" && ((relation.from === parameterId && relation.to === sharedId) || (relation.to === parameterId && relation.from === sharedId))) || null;
+    return data.relations.find((relation) => relation.classification !== "REJECTED" && (
+      (relation.from === parameterId && relation.to === sharedId) ||
+      (relation.to === parameterId && relation.from === sharedId)
+    )) || null;
   }
 
   function domainOverlap(parameter, shared) {
-    const a = new Set(parameter.domains || []);
-    const b = new Set(shared.domains || []);
-    const intersection = [...a].filter((value) => b.has(value)).length;
-    return intersection / Math.max(1, new Set([...a, ...b]).size);
+    const left = new Set(parameter.domains || []);
+    const right = new Set(shared.domains || []);
+    const intersection = [...left].filter((value) => right.has(value)).length;
+    return intersection / Math.max(1, new Set([...left, ...right]).size);
   }
 
   function stationScore(parameter, shared) {
@@ -215,19 +312,23 @@
   function strongestField() {
     const stations = enabledStations();
     let best = null;
-    sharedParameters.forEach((shared) => {
+    for (const shared of sharedParameters) {
       const results = stations.map((station) => {
-        const candidates = data.parameters.filter((item) => item.namespace === station).map((item) => stationScore(item, shared));
+        const candidates = data.parameters
+          .filter((item) => item.namespace === station)
+          .map((item) => stationScore(item, shared));
         return candidates.sort((a, b) => b.score - a.score || a.parameter.id.localeCompare(b.parameter.id))[0];
       }).filter(Boolean);
-      if (!results.length) return;
+      if (!results.length) continue;
       const coverage = results.filter((result) => result.relation).length / stations.length;
       const mean = results.reduce((sum, result) => sum + result.score, 0) / results.length;
       const minimum = Math.min(...results.map((result) => result.score));
       const score = mean * 0.68 + minimum * 0.22 + coverage * 0.10;
       if (!best || score > best.score) best = { shared, results, coverage, score };
-    });
-    if (best) best.results.forEach((result) => { stationSelects[result.parameter.namespace].value = result.parameter.id; });
+    }
+    if (best) {
+      for (const result of best.results) stationSelects[result.parameter.namespace].value = result.parameter.id;
+    }
     currentField = best;
     renderField(best);
   }
@@ -242,77 +343,135 @@
     const words = label.split(/\s+/);
     const lines = [];
     let line = "";
-    words.forEach((word) => {
-      if ((line + " " + word).trim().length > max && line) { lines.push(line); line = word; }
-      else line = (line + " " + word).trim();
-    });
+    for (const word of words) {
+      if (`${line} ${word}`.trim().length > max && line) {
+        lines.push(line);
+        line = word;
+      } else {
+        line = `${line} ${word}`.trim();
+      }
+    }
     if (line) lines.push(line);
     return lines.slice(0, 3);
+  }
+
+  function appendWrappedSvgText(parent, label, attrs, max) {
+    const text = svgEl("text", attrs);
+    wrapLabel(label, max).forEach((line, index) => {
+      const tspan = svgEl("tspan", { x: attrs.x, dy: index === 0 ? 0 : 20 });
+      tspan.textContent = line;
+      text.append(tspan);
+    });
+    parent.append(text);
+  }
+
+  function renderEmptyFieldReport() {
+    $("triReport").replaceChildren(
+      htmlEl("h2", {}, "No active stations"),
+      htmlEl("p", {}, "Enable at least one station.")
+    );
+  }
+
+  function renderFieldReport(field) {
+    const report = $("triReport");
+    const eyebrow = htmlEl("p", { class: "eyebrow" }, "Shared signal");
+    const title = htmlEl("h2", {}, field.shared.label);
+    const definition = htmlEl("p", {}, field.shared.definition);
+    const scoreBar = htmlEl("div", { class: "score-bar" });
+    const scoreFill = htmlEl("span");
+    scoreFill.style.width = `${Math.max(0, Math.min(100, Math.round(field.score * 100)))}%`;
+    scoreBar.append(scoreFill);
+    const dl = htmlEl("dl");
+    appendDefinition(dl, "Field score", `${Math.round(field.score * 100)}%`);
+    appendDefinition(dl, "Coverage", `${Math.round(field.coverage * 100)}%`);
+    for (const result of field.results) {
+      const content = document.createDocumentFragment();
+      content.append(htmlEl("strong", {}, result.parameter.label), htmlEl("br"));
+      if (result.relation) {
+        content.append(
+          htmlEl("span", { class: "pill" }, result.relation.classification),
+          document.createTextNode(` ${result.relation.rationale}`)
+        );
+      } else {
+        content.append(document.createTextNode("No explicit relation; domain similarity only."));
+      }
+      appendDefinition(dl, result.parameter.namespace, content);
+    }
+    const residual = 1 - Math.min(...field.results.map((result) => result.score));
+    const residualParagraph = htmlEl("p", { class: "residual" });
+    residualParagraph.append(
+      htmlEl("strong", {}, `Residual ${Math.round(residual * 100)}%: `),
+      document.createTextNode("unmatched meaning remains source-specific. Geometry, computation, ecology and Buddhist liberation practice are not interchangeable.")
+    );
+    report.replaceChildren(eyebrow, title, definition, scoreBar, dl, residualParagraph);
   }
 
   function renderField(field = evaluate(selectedParameters())) {
     currentField = field;
     fieldSvg.replaceChildren();
     if (!field) {
-      $("triReport").innerHTML = "<h2>No active stations</h2><p>Enable at least one station.</p>";
+      renderEmptyFieldReport();
       return;
     }
-    const cx = 500, cy = 300, radius = field.results.length === 1 ? 0 : 225;
+
+    const cx = 500;
+    const cy = 300;
+    const radius = field.results.length === 1 ? 0 : 225;
     const points = field.results.map((result, index) => {
       const angle = -Math.PI / 2 + index * (Math.PI * 2 / Math.max(1, field.results.length));
-      return { result, x: field.results.length === 1 ? cx : cx + Math.cos(angle) * radius, y: field.results.length === 1 ? cy - 150 : cy + Math.sin(angle) * radius };
+      return {
+        result,
+        x: field.results.length === 1 ? cx : cx + Math.cos(angle) * radius,
+        y: field.results.length === 1 ? cy - 150 : cy + Math.sin(angle) * radius
+      };
     });
 
-    points.forEach(({ result, x, y }) => fieldSvg.append(svgEl("line", { x1: x, y1: y, x2: cx, y2: cy, class: `tri-edge ${fieldClass(result.score)}` })));
+    for (const { result, x, y } of points) {
+      fieldSvg.append(svgEl("line", { x1: x, y1: y, x2: cx, y2: cy, class: `tri-edge ${fieldClass(result.score)}` }));
+    }
 
     const centre = svgEl("g", { class: "tri-centre" });
     centre.append(svgEl("circle", { cx, cy, r: 82 }));
-    const centreText = svgEl("text", { x: cx, y: cy - 10 });
-    wrapLabel(field.shared.label, 16).forEach((line, index) => {
-      const tspan = svgEl("tspan", { x: cx, dy: index === 0 ? 0 : 20 });
-      tspan.textContent = line;
-      centreText.append(tspan);
-    });
+    appendWrappedSvgText(centre, field.shared.label, { x: cx, y: cy - 10 }, 16);
     const scoreText = svgEl("text", { x: cx, y: cy + 56 });
     scoreText.textContent = `${Math.round(field.score * 100)}% field`;
-    centre.append(centreText, scoreText);
+    centre.append(scoreText);
     fieldSvg.append(centre);
 
-    points.forEach(({ result, x, y }) => {
+    for (const { result, x, y } of points) {
       const group = svgEl("g", { class: `tri-node ${result.parameter.namespace}` });
       group.append(svgEl("circle", { cx: x, cy: y, r: 55 }));
-      const text = svgEl("text", { x, y: y - 8 });
-      wrapLabel(result.parameter.label, 18).forEach((line, index) => {
-        const tspan = svgEl("tspan", { x, dy: index === 0 ? 0 : 18 });
-        tspan.textContent = line;
-        text.append(tspan);
-      });
+      appendWrappedSvgText(group, result.parameter.label, { x, y: y - 8 }, 18);
       const pct = svgEl("text", { x, y: y + 43 });
       pct.textContent = `${Math.round(result.score * 100)}%`;
-      group.append(text, pct);
+      group.append(pct);
       fieldSvg.append(group);
-    });
+    }
 
-    const residual = 1 - Math.min(...field.results.map((result) => result.score));
-    const rows = field.results.map((result) => `<dt>${esc(result.parameter.namespace)}</dt><dd><strong>${esc(result.parameter.label)}</strong><br>${result.relation ? `<span class="pill">${esc(result.relation.classification)}</span> ${esc(result.relation.rationale)}` : "No explicit relation; domain similarity only."}</dd>`).join("");
-    $("triReport").innerHTML = `<p class="eyebrow">Shared signal</p><h2>${esc(field.shared.label)}</h2><p>${esc(field.shared.definition)}</p><div class="score-bar"><span style="width:${Math.round(field.score * 100)}%"></span></div><dl><dt>Field score</dt><dd>${Math.round(field.score * 100)}%</dd><dt>Coverage</dt><dd>${Math.round(field.coverage * 100)}%</dd>${rows}</dl><p class="residual"><strong>Residual ${Math.round(residual * 100)}%:</strong> unmatched meaning remains source-specific. Geometry, computation, ecology and Buddhist liberation practice are not interchangeable.</p>`;
+    renderFieldReport(field);
   }
 
   function populateSelectors() {
-    stationNames.forEach((station) => {
+    for (const station of stationNames) {
       const select = stationSelects[station];
-      data.parameters.filter((item) => item.namespace === station).sort((a, b) => a.label.localeCompare(b.label)).forEach((parameter) => {
-        const option = document.createElement("option");
-        option.value = parameter.id;
-        option.textContent = parameter.label;
-        select.append(option);
-      });
-    });
+      const parameters = data.parameters
+        .filter((item) => item.namespace === station)
+        .sort((a, b) => a.label.localeCompare(b.label));
+      for (const parameter of parameters) {
+        select.append(htmlEl("option", { value: parameter.id }, parameter.label));
+      }
+    }
   }
 
   function audioContext() {
     const Context = window.AudioContext || window.webkitAudioContext;
     return Context ? new Context() : null;
+  }
+
+  function closeAudioContextLater(context, delay) {
+    window.setTimeout(() => {
+      if (context.state !== "closed") context.close().catch(() => {});
+    }, delay);
   }
 
   function sonifyField() {
@@ -355,28 +514,39 @@
     centreGain.gain.linearRampToValueAtTime(0.22 * field.score, context.currentTime + 0.15);
     centreGain.gain.exponentialRampToValueAtTime(0.001, context.currentTime + 2.5);
     centre.connect(centreGain).connect(master);
-    centre.start(); centre.stop(context.currentTime + 2.55);
-    setTimeout(() => context.close(), 2900);
+    centre.start();
+    centre.stop(context.currentTime + 2.55);
+    closeAudioContextLater(context, 2900);
   }
 
   function sonifyVisible() {
     const visible = visibleData();
     const context = audioContext();
     if (!context || !visible.parameters.length) return;
-    const master = context.createGain(); master.gain.value = 0.055; master.connect(context.destination);
+    const master = context.createGain();
+    master.gain.value = 0.055;
+    master.connect(context.destination);
     const degree = new Map(visible.parameters.map((item) => [item.id, 0]));
-    visible.relations.forEach((relation) => { degree.set(relation.from, (degree.get(relation.from) || 0) + 1); degree.set(relation.to, (degree.get(relation.to) || 0) + 1); });
+    for (const relation of visible.relations) {
+      degree.set(relation.from, (degree.get(relation.from) || 0) + 1);
+      degree.set(relation.to, (degree.get(relation.to) || 0) + 1);
+    }
     visible.parameters.sort((a, b) => a.id.localeCompare(b.id)).forEach((parameter, index) => {
-      const oscillator = context.createOscillator(); const gain = context.createGain();
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
       const offset = { fuller: 0, qsol: 5, thorne: 10, hawken: 15, buddhist: 19, shared: 24 }[parameter.namespace] || 0;
       const midi = 42 + offset + Math.min(16, (degree.get(parameter.id) || 0) * 2);
       oscillator.frequency.value = 440 * 2 ** ((midi - 69) / 12);
       oscillator.type = parameter.namespace === "qsol" || parameter.namespace === "buddhist" ? "sine" : "triangle";
       const start = context.currentTime + index * 0.07;
-      gain.gain.setValueAtTime(0, start); gain.gain.linearRampToValueAtTime(0.35, start + 0.01); gain.gain.exponentialRampToValueAtTime(0.001, start + 0.13);
-      oscillator.connect(gain).connect(master); oscillator.start(start); oscillator.stop(start + 0.14);
+      gain.gain.setValueAtTime(0, start);
+      gain.gain.linearRampToValueAtTime(0.35, start + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + 0.13);
+      oscillator.connect(gain).connect(master);
+      oscillator.start(start);
+      oscillator.stop(start + 0.14);
     });
-    setTimeout(() => context.close(), visible.parameters.length * 75 + 500);
+    closeAudioContextLater(context, visible.parameters.length * 75 + 500);
   }
 
   function exportView() {
@@ -396,9 +566,16 @@
       parameter_ids: visible.parameters.map((item) => item.id).sort(),
       relation_ids: visible.relations.map((item) => item.id).sort()
     };
-    const blob = new Blob([JSON.stringify(payload, null, 2) + "\n"], { type: "application/json" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob); link.download = "synergetics-research-view.json"; link.click(); URL.revokeObjectURL(link.href);
+    const blob = new Blob([`${JSON.stringify(payload, null, 2)}\n`], { type: "application/json" });
+    const objectUrl = URL.createObjectURL(blob);
+    const link = htmlEl("a", { href: objectUrl, download: "synergetics-research-view.json" });
+    link.hidden = true;
+    document.body.append(link);
+    link.click();
+    window.setTimeout(() => {
+      URL.revokeObjectURL(objectUrl);
+      link.remove();
+    }, 100);
   }
 
   populateSelectors();

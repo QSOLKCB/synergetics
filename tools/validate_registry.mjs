@@ -2,9 +2,15 @@ import fs from "node:fs";
 import vm from "node:vm";
 
 const source = fs.readFileSync(new URL("../data/data.bundle.js", import.meta.url), "utf8");
-const context = { window: {} };
-vm.createContext(context);
-vm.runInContext(source, context, { filename: "data/data.bundle.js" });
+const context = vm.createContext(
+  { window: Object.create(null) },
+  { codeGeneration: { strings: false, wasm: false }, name: "synergetics-registry-validator" }
+);
+vm.runInContext(source, context, {
+  filename: "data/data.bundle.js",
+  timeout: 1000,
+  displayErrors: true
+});
 
 const data = context.window.SYNERGETICS_DATA;
 const fail = (message) => {
@@ -30,7 +36,13 @@ for (const parameter of data.parameters) {
   if (!parameter.label || !parameter.definition) fail(`parameter ${parameter.id} needs label and definition`);
   if (!Array.isArray(parameter.domains) || parameter.domains.length === 0) fail(`parameter ${parameter.id} needs domains`);
   if (!Array.isArray(parameter.source_refs) || parameter.source_refs.length === 0) fail(`parameter ${parameter.id} needs source_refs`);
-  for (const code of parameter.evidence_status || []) if (!evidenceCodes.has(code)) fail(`invalid evidence code ${code} on ${parameter.id}`);
+  if (!Array.isArray(parameter.evidence_status)) {
+    fail(`parameter ${parameter.id} needs array evidence_status`);
+  } else {
+    for (const code of parameter.evidence_status) {
+      if (!evidenceCodes.has(code)) fail(`invalid evidence code ${code} on ${parameter.id}`);
+    }
+  }
 }
 
 for (const relation of data.relations) {
@@ -42,11 +54,14 @@ for (const relation of data.relations) {
   for (const key of ["evidence_status", "preserves", "transforms", "discards"]) {
     if (!Array.isArray(relation[key])) fail(`relation ${relation.id} needs array ${key}`);
   }
-  for (const code of relation.evidence_status || []) if (!evidenceCodes.has(code)) fail(`invalid evidence code ${code} on ${relation.id}`);
+  for (const code of relation.evidence_status || []) {
+    if (!evidenceCodes.has(code)) fail(`invalid evidence code ${code} on ${relation.id}`);
+  }
 
   const fromNs = relation.from.split(".")[0];
   const toNs = relation.to.split(".")[0];
-  if (relation.classification !== "REJECTED" && fromNs !== "shared" && toNs !== "shared") {
+  const isCrossStation = fromNs !== toNs;
+  if (relation.classification !== "REJECTED" && isCrossStation && fromNs !== "shared" && toNs !== "shared") {
     fail(`non-rejected cross-station relation ${relation.id} must pass through a shared signal`);
   }
   if (relation.classification === "REJECTED" && relation.status !== "rejected") {
@@ -72,7 +87,9 @@ for (const relation of data.relations) {
   coverage.get(sharedId).add(station);
 }
 
-const fullCoverageSignals = [...coverage.entries()].filter(([, stations]) => ["fuller", "qsol", "thorne", "hawken", "buddhist"].every((station) => stations.has(station)));
+const fullCoverageSignals = [...coverage.entries()].filter(([, stations]) =>
+  ["fuller", "qsol", "thorne", "hawken", "buddhist"].every((station) => stations.has(station))
+);
 if (fullCoverageSignals.length === 0) fail("registry must contain at least one shared signal mapped to all five stations");
 
 if (!process.exitCode) {

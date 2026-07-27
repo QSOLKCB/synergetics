@@ -5,8 +5,9 @@
   "description": "Offline source-bound parameter atlas and visual/sonic shared-signal matcher.",
   "scripts": {
     "validate": "node tools/validate_registry.mjs",
-    "check": "node --check data/data.bundle.js && node --check js/app.js",
-    "test": "npm run check && npm run validate"
+    "security": "node tools/validate_client.mjs",
+    "check": "node --check data/data.bundle.js && node --check js/app.js && node --check tools/validate_registry.mjs && node --check tools/validate_client.mjs",
+    "test": "npm run check && npm run security && npm run validate"
   },
   "engines": {
     "node": ">=24"

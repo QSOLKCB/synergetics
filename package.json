@@ -1,0 +1,14 @@
+{
+  "name": "qsol-synergetics-atlas",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Offline source-bound parameter atlas and visual/sonic shared-signal matcher.",
+  "scripts": {
+    "validate": "node tools/validate_registry.mjs",
+    "check": "node --check data/data.bundle.js && node --check js/app.js",
+    "test": "npm run check && npm run validate"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

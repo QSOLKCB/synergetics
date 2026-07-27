@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Source-bound parameter atlas comparing Fuller, QSOL-IMC and demonstrably Synergetic structures in Brian Thorne's software work.">
+  <meta name="description" content="Source-bound atlas comparing Fuller, QSOL-IMC, Thorne and Paul Hawken through explicit shared signals.">
   <title>SYNERGETICS — Parameter Atlas</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -12,7 +12,7 @@
     <div>
       <p class="eyebrow">QSOL-IMC / comparative systems research</p>
       <h1>SYNERGETICS</h1>
-      <p class="lede">A source-bound atlas for triangulating energetic geometry, informational geometry and executable boundary systems without confusing analogy with equivalence.</p>
+      <p class="lede">A source-bound atlas for locating common signals across energetic geometry, informational geometry, executable boundary systems and regenerative ecological thinking.</p>
     </div>
     <div class="header-actions">
       <button id="sonifyButton" type="button">Sonify visible map</button>
@@ -22,7 +22,7 @@
 
   <main>
     <section class="notice" aria-label="Research boundary">
-      <strong>Research boundary:</strong> shared numbers, attractive projections and geometric resemblance are not evidence. Every visible relation carries a classification, evidence grade and falsification note.
+      <strong>Research boundary:</strong> agreement among sources does not manufacture truth. The matcher reports the shared signal, mapping strength and residual differences in meaning, units and ontology.
     </section>
 
     <section class="toolbar" aria-label="Atlas controls">
@@ -34,14 +34,15 @@
         </select>
       </label>
       <label>Search
-        <input id="searchInput" type="search" placeholder="boundary, pressure, tetrahedron…">
+        <input id="searchInput" type="search" placeholder="boundary, pressure, regeneration…">
       </label>
       <fieldset>
-        <legend>Namespaces</legend>
+        <legend>Research stations</legend>
         <label><input type="checkbox" name="namespace" value="fuller" checked> Fuller</label>
         <label><input type="checkbox" name="namespace" value="qsol" checked> QSOL</label>
         <label><input type="checkbox" name="namespace" value="thorne" checked> Thorne</label>
-        <label><input type="checkbox" name="namespace" value="shared" checked> Shared</label>
+        <label><input type="checkbox" name="namespace" value="hawken" checked> Hawken</label>
+        <label><input type="checkbox" name="namespace" value="shared" checked> Shared signals</label>
       </fieldset>
       <label>Layout seed
         <input id="seedInput" type="number" value="303" min="0" step="1">
@@ -55,25 +56,33 @@
       <article><span id="hypothesisCount">0</span><small>hypotheses</small></article>
     </section>
 
-    <section class="triangulator" aria-labelledby="triangulatorTitle">
+    <section class="triangulator" aria-labelledby="matcherTitle">
       <div class="panel-heading">
         <div>
-          <p class="eyebrow">Triadic matcher</p>
-          <h2 id="triangulatorTitle">Triangulate a shared signal</h2>
-          <p>Select one parameter from Fuller, QSOL and Thorne, or let the lab locate the strongest defensible three-way match.</p>
+          <p class="eyebrow">Signal field matcher</p>
+          <h2 id="matcherTitle">Locate a shared signal</h2>
+          <p>Inspect one school at a time, triangulate any three, or compare all four stations around the strongest defensible shared concept.</p>
         </div>
         <div class="tri-actions">
-          <button id="autoMatchButton" type="button">Find strongest match</button>
-          <button id="triSonifyButton" type="button">Sonify triangle</button>
+          <label>Field mode
+            <select id="fieldMode">
+              <option value="all">All four stations</option>
+              <option value="triad">Selected three stations</option>
+              <option value="single">Single-station inspection</option>
+            </select>
+          </label>
+          <button id="autoMatchButton" type="button">Find strongest signal</button>
+          <button id="triSonifyButton" type="button">Sonify field</button>
         </div>
       </div>
       <div class="tri-controls">
-        <label>Fuller<select id="fullerSelect"></select></label>
-        <label>QSOL<select id="qsolSelect"></select></label>
-        <label>Thorne<select id="thorneSelect"></select></label>
+        <label><input class="station-toggle" type="checkbox" value="fuller" checked> Fuller<select id="fullerSelect"></select></label>
+        <label><input class="station-toggle" type="checkbox" value="qsol" checked> QSOL<select id="qsolSelect"></select></label>
+        <label><input class="station-toggle" type="checkbox" value="thorne" checked> Thorne<select id="thorneSelect"></select></label>
+        <label><input class="station-toggle" type="checkbox" value="hawken" checked> Hawken<select id="hawkenSelect"></select></label>
       </div>
       <div class="tri-grid">
-        <svg id="triangulation" viewBox="0 0 900 420" role="img" aria-label="Three-way parameter triangulation"></svg>
+        <svg id="triangulation" viewBox="0 0 900 520" role="img" aria-label="Multi-station shared-signal field"></svg>
         <aside id="triReport" class="tri-report" aria-live="polite"></aside>
       </div>
     </section>
@@ -86,9 +95,9 @@
             <span data-class="EXACT">Exact</span><span data-class="STRUCTURAL">Structural</span><span data-class="FUNCTIONAL">Functional</span><span data-class="ANALOGICAL">Analogical</span><span data-class="HYPOTHETICAL">Hypothetical</span><span data-class="REJECTED">Rejected</span>
           </div>
         </div>
-        <svg id="atlas" viewBox="0 0 1200 720" role="img" aria-labelledby="atlasTitle atlasDesc">
+        <svg id="atlas" viewBox="0 0 1400 760" role="img" aria-labelledby="atlasTitle atlasDesc">
           <title id="atlasTitle">Synergetics parameter relation map</title>
-          <desc id="atlasDesc">Interactive map of Fuller, QSOL, Thorne and shared comparative parameters.</desc>
+          <desc id="atlasDesc">Interactive map of Fuller, QSOL, Thorne, Hawken and shared comparative signals.</desc>
         </svg>
       </div>
       <aside id="detailPanel" class="detail-panel" aria-live="polite">
@@ -104,7 +113,7 @@
     </section>
   </main>
 
-  <footer><p>Independent comparative research by Trent Slade / QSOL-IMC. Not affiliated with the Buckminster Fuller Institute, the Fuller Estate or Brian Thorne.</p></footer>
+  <footer><p>Independent comparative research by Trent Slade / QSOL-IMC. Not affiliated with the Buckminster Fuller Institute, the Fuller Estate, Brian Thorne, Paul Hawken, Project Drawdown or Project Regeneration.</p></footer>
   <script src="data/data.bundle.js"></script>
   <script src="js/app.js"></script>
 </body>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Source-bound atlas comparing Fuller, QSOL-IMC, Thorne and Paul Hawken through explicit shared signals.">
+  <meta name="description" content="Source-bound atlas comparing Fuller, QSOL-IMC, Thorne, Hawken and Buddhist Middle Way training through explicit shared signals.">
   <title>SYNERGETICS — Parameter Atlas</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -12,7 +12,7 @@
     <div>
       <p class="eyebrow">QSOL-IMC / comparative systems research</p>
       <h1>SYNERGETICS</h1>
-      <p class="lede">A source-bound atlas for locating common signals across energetic geometry, informational geometry, executable boundary systems and regenerative ecological thinking.</p>
+      <p class="lede">A source-bound atlas for locating common signals across energetic geometry, informational geometry, executable boundary systems, regenerative ecology and reciprocal Buddhist training.</p>
     </div>
     <div class="header-actions">
       <button id="sonifyButton" type="button">Sonify visible map</button>
@@ -22,7 +22,7 @@
 
   <main>
     <section class="notice" aria-label="Research boundary">
-      <strong>Research boundary:</strong> agreement among sources does not manufacture truth. The matcher reports the shared signal, mapping strength and residual differences in meaning, units and ontology.
+      <strong>Research boundary:</strong> agreement among sources does not manufacture truth. The matcher reports shared structure, mapping strength and residual differences in meaning, units, purpose and ontology.
     </section>
 
     <section class="toolbar" aria-label="Atlas controls">
@@ -34,7 +34,7 @@
         </select>
       </label>
       <label>Search
-        <input id="searchInput" type="search" placeholder="boundary, pressure, regeneration…">
+        <input id="searchInput" type="search" placeholder="boundary, pressure, wisdom, regeneration…">
       </label>
       <fieldset>
         <legend>Research stations</legend>
@@ -42,6 +42,7 @@
         <label><input type="checkbox" name="namespace" value="qsol" checked> QSOL</label>
         <label><input type="checkbox" name="namespace" value="thorne" checked> Thorne</label>
         <label><input type="checkbox" name="namespace" value="hawken" checked> Hawken</label>
+        <label><input type="checkbox" name="namespace" value="buddhist" checked> Middle Way</label>
         <label><input type="checkbox" name="namespace" value="shared" checked> Shared signals</label>
       </fieldset>
       <label>Layout seed
@@ -61,13 +62,13 @@
         <div>
           <p class="eyebrow">Signal field matcher</p>
           <h2 id="matcherTitle">Locate a shared signal</h2>
-          <p>Inspect one school at a time, triangulate any three, or compare all four stations around the strongest defensible shared concept.</p>
+          <p>Inspect one station, triangulate three, or compare all five around the strongest defensible shared concept. The centre is a measured comparison—not a universal synthesis.</p>
         </div>
         <div class="tri-actions">
           <label>Field mode
             <select id="fieldMode">
-              <option value="all">All four stations</option>
-              <option value="triad">Selected three stations</option>
+              <option value="all">All enabled stations</option>
+              <option value="triad">First three enabled</option>
               <option value="single">Single-station inspection</option>
             </select>
           </label>
@@ -80,9 +81,10 @@
         <label><input class="station-toggle" type="checkbox" value="qsol" checked> QSOL<select id="qsolSelect"></select></label>
         <label><input class="station-toggle" type="checkbox" value="thorne" checked> Thorne<select id="thorneSelect"></select></label>
         <label><input class="station-toggle" type="checkbox" value="hawken" checked> Hawken<select id="hawkenSelect"></select></label>
+        <label><input class="station-toggle" type="checkbox" value="buddhist" checked> Middle Way<select id="buddhistSelect"></select></label>
       </div>
       <div class="tri-grid">
-        <svg id="triangulation" viewBox="0 0 900 520" role="img" aria-label="Multi-station shared-signal field"></svg>
+        <svg id="triangulation" viewBox="0 0 1000 600" role="img" aria-label="Multi-station shared-signal field"></svg>
         <aside id="triReport" class="tri-report" aria-live="polite"></aside>
       </div>
     </section>
@@ -95,9 +97,9 @@
             <span data-class="EXACT">Exact</span><span data-class="STRUCTURAL">Structural</span><span data-class="FUNCTIONAL">Functional</span><span data-class="ANALOGICAL">Analogical</span><span data-class="HYPOTHETICAL">Hypothetical</span><span data-class="REJECTED">Rejected</span>
           </div>
         </div>
-        <svg id="atlas" viewBox="0 0 1400 760" role="img" aria-labelledby="atlasTitle atlasDesc">
+        <svg id="atlas" viewBox="0 0 1600 820" role="img" aria-labelledby="atlasTitle atlasDesc">
           <title id="atlasTitle">Synergetics parameter relation map</title>
-          <desc id="atlasDesc">Interactive map of Fuller, QSOL, Thorne, Hawken and shared comparative signals.</desc>
+          <desc id="atlasDesc">Interactive map of Fuller, QSOL, Thorne, Hawken, Buddhist Middle Way and shared comparative signals.</desc>
         </svg>
       </div>
       <aside id="detailPanel" class="detail-panel" aria-live="polite">
@@ -113,7 +115,7 @@
     </section>
   </main>
 
-  <footer><p>Independent comparative research by Trent Slade / QSOL-IMC. Not affiliated with the Buckminster Fuller Institute, the Fuller Estate, Brian Thorne, Paul Hawken, Project Drawdown or Project Regeneration.</p></footer>
+  <footer><p>Independent comparative research by Trent Slade / QSOL-IMC. No affiliation or endorsement is claimed from the people, estates, institutes, projects or Buddhist traditions represented.</p></footer>
   <script src="data/data.bundle.js"></script>
   <script src="js/app.js"></script>
 </body>

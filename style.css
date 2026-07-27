@@ -10,6 +10,7 @@
   --fuller: #d0a85c;
   --qsol: #63b3a6;
   --thorne: #9f8bc4;
+  --hawken: #82a96b;
   --shared: #b7b1a6;
   --danger: #d46a6a;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -23,12 +24,14 @@ button:hover, button:focus-visible, select:focus-visible, input:focus-visible { 
 .site-header { display: flex; justify-content: space-between; gap: 2rem; padding: 2.2rem clamp(1rem, 4vw, 4rem); border-bottom: 1px solid var(--line); background: linear-gradient(120deg, #171a1d, #101214); }
 h1 { margin: .1rem 0 .4rem; font-size: clamp(2.6rem, 7vw, 5.8rem); letter-spacing: -.055em; line-height: .92; }
 h2 { margin: .15rem 0; }
-.lede { max-width: 78ch; color: var(--muted); font-size: 1.05rem; }
+.lede { max-width: 82ch; color: var(--muted); font-size: 1.05rem; }
 .eyebrow { margin: 0; color: var(--focus); text-transform: uppercase; font-size: .72rem; letter-spacing: .16em; font-weight: 750; }
 .header-actions, .tri-actions { display: flex; gap: .7rem; align-items: flex-start; flex-wrap: wrap; }
+.tri-actions label { display: grid; gap: .3rem; color: var(--muted); font-size: .78rem; }
+.tri-actions select { min-height: 2.45rem; padding: .5rem .65rem; }
 main { padding: 1rem clamp(1rem, 4vw, 4rem) 3rem; }
 .notice { border-left: 4px solid var(--focus); padding: .9rem 1rem; margin: 1rem 0; background: #1a1d20; color: var(--muted); }
-.toolbar { display: grid; grid-template-columns: minmax(130px, .6fr) minmax(210px, 1.2fr) minmax(320px, 2fr) minmax(120px, .5fr); gap: 1rem; align-items: end; padding: 1rem; background: var(--panel); border: 1px solid var(--line); border-radius: .5rem; }
+.toolbar { display: grid; grid-template-columns: minmax(130px, .6fr) minmax(210px, 1.2fr) minmax(380px, 2.2fr) minmax(120px, .5fr); gap: 1rem; align-items: end; padding: 1rem; background: var(--panel); border: 1px solid var(--line); border-radius: .5rem; }
 .toolbar label, .tri-controls label { display: grid; gap: .35rem; color: var(--muted); font-size: .85rem; }
 .toolbar input, .toolbar select, .tri-controls select { min-height: 2.45rem; padding: .5rem .65rem; }
 .toolbar fieldset { min-height: 2.45rem; margin: 0; border: 1px solid var(--line); border-radius: .35rem; display: flex; gap: .9rem; flex-wrap: wrap; }
@@ -40,7 +43,7 @@ main { padding: 1rem clamp(1rem, 4vw, 4rem) 3rem; }
 .workspace { display: grid; grid-template-columns: minmax(0, 3fr) minmax(270px, 1fr); gap: 1rem; }
 .atlas-panel, .detail-panel, .crosswalk-panel, .triangulator { background: var(--panel); border: 1px solid var(--line); border-radius: .5rem; overflow: hidden; }
 .panel-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding: 1rem; border-bottom: 1px solid var(--line); }
-.panel-heading p:not(.eyebrow) { margin: .35rem 0 0; color: var(--muted); max-width: 70ch; }
+.panel-heading p:not(.eyebrow) { margin: .35rem 0 0; color: var(--muted); max-width: 72ch; }
 .legend { display: flex; gap: .55rem; flex-wrap: wrap; font-size: .72rem; color: var(--muted); }
 .legend span::before { content: ""; display: inline-block; width: 1.1rem; border-top: 3px solid currentColor; margin-right: .3rem; vertical-align: middle; }
 .legend [data-class="EXACT"] { color: #eee5cd; }
@@ -49,8 +52,8 @@ main { padding: 1rem clamp(1rem, 4vw, 4rem) 3rem; }
 .legend [data-class="ANALOGICAL"] { color: #d4ae72; }
 .legend [data-class="HYPOTHETICAL"] { color: #b995ce; }
 .legend [data-class="REJECTED"] { color: var(--danger); text-decoration: line-through; }
-#atlas { display: block; width: 100%; height: min(70vh, 720px); background: radial-gradient(circle at 50% 50%, #1c2024 0, #121416 70%); }
-.detail-panel { padding: 1rem; overflow: auto; max-height: calc(min(70vh, 720px) + 75px); }
+#atlas { display: block; width: 100%; height: min(72vh, 760px); background: radial-gradient(circle at 50% 50%, #1c2024 0, #121416 70%); }
+.detail-panel { padding: 1rem; overflow: auto; max-height: calc(min(72vh, 760px) + 75px); }
 .detail-panel dl, .tri-report dl { display: grid; grid-template-columns: 7.5rem 1fr; gap: .55rem .8rem; }
 .detail-panel dt, .tri-report dt { color: var(--muted); }
 .detail-panel dd, .tri-report dd { margin: 0; overflow-wrap: anywhere; }
@@ -70,8 +73,9 @@ main { padding: 1rem clamp(1rem, 4vw, 4rem) 3rem; }
 .node-group.fuller circle { fill: var(--fuller); }
 .node-group.qsol circle { fill: var(--qsol); }
 .node-group.thorne circle { fill: var(--thorne); }
+.node-group.hawken circle { fill: var(--hawken); }
 .node-group.shared circle { fill: var(--shared); }
-.namespace-label { fill: var(--muted); font-size: 16px; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; }
+.namespace-label { fill: var(--muted); font-size: 15px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
 .crosswalk-panel, .triangulator { margin-top: 1rem; }
 .table-wrap { overflow: auto; max-height: 420px; }
 table { width: 100%; border-collapse: collapse; }
@@ -79,31 +83,36 @@ th, td { text-align: left; padding: .75rem; border-bottom: 1px solid var(--line)
 th { position: sticky; top: 0; background: var(--panel-2); color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
 tbody tr { cursor: pointer; }
 tbody tr:hover { background: #24292e; }
-.tri-controls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 1rem; border-bottom: 1px solid var(--line); }
-.tri-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr); }
-#triangulation { width: 100%; min-height: 420px; background: radial-gradient(circle at 50% 50%, #1f2327, #121416 72%); }
+.tri-controls { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; padding: 1rem; border-bottom: 1px solid var(--line); }
+.tri-controls label { grid-template-columns: auto 1fr; align-items: center; }
+.tri-controls select { grid-column: 1 / -1; width: 100%; }
+.tri-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(290px, 1fr); }
+#triangulation { width: 100%; min-height: 520px; background: radial-gradient(circle at 50% 50%, #1f2327, #121416 72%); }
 .tri-report { padding: 1rem; border-left: 1px solid var(--line); }
 .tri-edge { stroke-width: 4; fill: none; opacity: .85; }
 .tri-edge.strong { stroke: #a7cf9a; }
 .tri-edge.medium { stroke: #d4ae72; stroke-dasharray: 9 5; }
 .tri-edge.weak { stroke: #b995ce; stroke-dasharray: 3 7; }
 .tri-node circle { stroke: #0c0e10; stroke-width: 5; }
-.tri-node text { fill: var(--text); font-size: 17px; font-weight: 700; text-anchor: middle; paint-order: stroke; stroke: #0f1113; stroke-width: 5px; }
+.tri-node text { fill: var(--text); font-size: 16px; font-weight: 700; text-anchor: middle; paint-order: stroke; stroke: #0f1113; stroke-width: 5px; }
 .tri-node.fuller circle { fill: var(--fuller); }
 .tri-node.qsol circle { fill: var(--qsol); }
 .tri-node.thorne circle { fill: var(--thorne); }
+.tri-node.hawken circle { fill: var(--hawken); }
 .tri-centre circle { fill: #16191c; stroke: var(--focus); stroke-width: 3; }
 .tri-centre text { fill: var(--focus); text-anchor: middle; font-weight: 800; }
 .score-bar { height: .65rem; background: #2a2e32; border-radius: 999px; overflow: hidden; margin: .35rem 0 .8rem; }
 .score-bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--danger), #d4ae72, #a7cf9a); }
+.residual { padding: .75rem; border-left: 3px solid var(--danger); background: #21191a; color: var(--muted); }
 footer { color: var(--muted); border-top: 1px solid var(--line); padding: 1.3rem clamp(1rem, 4vw, 4rem); }
-@media (max-width: 950px) {
+@media (max-width: 1050px) {
   .site-header, .panel-heading { align-items: flex-start; flex-direction: column; }
   .toolbar { grid-template-columns: 1fr 1fr; }
   .workspace, .tri-grid { grid-template-columns: 1fr; }
   .tri-report { border-left: 0; border-top: 1px solid var(--line); }
   .detail-panel { max-height: none; }
 }
+@media (max-width: 760px) { .tri-controls { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 620px) {
   .toolbar, .metrics, .tri-controls { grid-template-columns: 1fr; }
   .toolbar fieldset { display: grid; grid-template-columns: 1fr 1fr; }

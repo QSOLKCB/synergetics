@@ -192,7 +192,7 @@ Then visit `http://localhost:8000`.
 
 ## Validate
 
-Node.js 20 or newer:
+Node.js 24 or newer:
 
 ```bash
 npm test
